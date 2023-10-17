@@ -4,9 +4,8 @@ import Link from "next/link";
 import { api } from "~/utils/api";
 import { UserButton } from "@clerk/nextjs";
 
-
 export default function Home() {
-  const hello = api.example.hello.useQuery({ text: "from tRPC" });
+  const { data } = api.accounts.getAll.useQuery();
 
   return (
     <>
@@ -16,7 +15,12 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#2e026d] to-[#15162c]">
-        <UserButton afterSignOutUrl="/"/>
+        <div>
+          <UserButton afterSignOutUrl="/" />
+        </div>
+        <div>
+          {data?.map((account) => <div key={account.id}>{account.name}</div>)}
+        </div>
       </main>
     </>
   );

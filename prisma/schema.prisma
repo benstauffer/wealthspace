@@ -10,11 +10,25 @@ datasource db {
     relationMode = "prisma"
 }
 
-model Example {
-    id        Int      @id @default(autoincrement())
-    name      String
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
+enum AccountType {
+  CASH_ACCOUNT
+  INVESTMENT
+  PRIVATE_INVESTMENT
+  REAL_ESTATE
+  OTHER_ASSET
+  PAYABLE
+}
 
-    @@index([name])
+enum OwnerType {
+    PERSONAL
+    PARTNER
+    OTHER
+}
+
+model Account {
+  id          String          @id @default(cuid())
+  owner       OwnerType
+  type        AccountType
+  name        String
+  value       Float
 }
