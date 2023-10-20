@@ -12,7 +12,7 @@ import {
 const MyApp: AppType = ({ Component, pageProps }) => {
   return (
     <main className="flex justify-center mt-5">
-      <div className="h-full w-full md:max-w-5xl">
+      <div className="h-full w-full md:max-w-3xl">
         <ClerkProvider {...pageProps}>
           <SignedIn>
             <UserButton />

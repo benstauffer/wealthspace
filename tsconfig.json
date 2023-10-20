@@ -28,6 +28,6 @@
     "**/*.tsx",
     "**/*.cjs",
     "**/*.mjs"
-  ],
+, "src/@/components/ui/accounts-table"  ],
   "exclude": ["node_modules"]
 }

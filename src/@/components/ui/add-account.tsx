@@ -1,4 +1,5 @@
 "use client"
+import React, { useState } from 'react';
 import { Button } from "~/@/components/ui/button"
 import {
   Dialog,
@@ -20,65 +21,63 @@ import {
   DropdownMenuItem,
 } from "~/@/components/ui/dropdown-menu"
 
+import { 
+  CashAccountDialog,
+  InvestmentAccountDialog,
+  PrivateInvestmentDialog,
+  RealEstateDialog,
+  OtherAssetDialog, 
+  LiabilityDialog, 
+} from "~/@/components/ui/account-dialogs"
+
+type AccountType = 'CashAccount' | 'InvestmentAccount' | 'PrivateInvestment' | 'RealEstate' | 'OtherAssets' | 'Liability';
+
 export function DialogAddAccount() {
+
+  // Define state for the selected account type
+    const [selectedAccountType, setSelectedAccountType] = useState<AccountType | null>(null);
+
+  // This function will set the selected account type
+    const handleAccountSelection = (type: AccountType) => {
+    setSelectedAccountType(type);
+  }
+  
   return (
     <Dialog>
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button variant="outline">+ Add Account</Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent>
-        <DropdownMenuSeparator />
-        <DialogTrigger asChild>
-          <DropdownMenuItem>Cash Account</DropdownMenuItem>
-        </DialogTrigger>
-        <DialogTrigger asChild>
-          <DropdownMenuItem>Investment Account</DropdownMenuItem>
-        </DialogTrigger>
-        <DialogTrigger asChild>
-          <DropdownMenuItem>Private Investment</DropdownMenuItem>
-        </DialogTrigger>
-        <DialogTrigger asChild>
-          <DropdownMenuItem>Real Estate</DropdownMenuItem>
-        </DialogTrigger>
-        <DialogTrigger asChild>
-          <DropdownMenuItem>Other</DropdownMenuItem>
-        </DialogTrigger>
-      </DropdownMenuContent>
-    </DropdownMenu>
-    <DialogContent className="sm:max-w-[425px]">
-            <DialogHeader>
-              <DialogTitle>Add Account</DialogTitle>
-              <DialogDescription>
-                Make changes to your account. Click save when you're done.
-              </DialogDescription>
-            </DialogHeader>
-            <div className="grid gap-4 py-4">
-              <div className="grid grid-cols-4 items-center gap-4">
-                <Label htmlFor="name" className="text-right">
-                  Account Name
-                </Label>
-                <Input
-                  id="name"
-                  defaultValue="Account Name"
-                  className="col-span-3"
-                />
-              </div>
-              <div className="grid grid-cols-4 items-center gap-4">
-                <Label htmlFor="username" className="text-right">
-                  Account Value
-                </Label>
-                <Input
-                  id="username"
-                  defaultValue="@peduarte"
-                  className="col-span-3"
-                />
-              </div>
-            </div>
-            <DialogFooter>
-              <Button type="submit">Save changes</Button>
-            </DialogFooter>
-          </DialogContent>
-        </Dialog>
-  )
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button variant="outline">+ Add Account</Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent>
+          <DropdownMenuSeparator />
+          <DialogTrigger asChild>
+            <DropdownMenuItem onClick={() => handleAccountSelection('CashAccount')}>Cash Account</DropdownMenuItem>
+          </DialogTrigger>
+          <DialogTrigger asChild>
+            <DropdownMenuItem onClick={() => handleAccountSelection('InvestmentAccount')}>Investment Account</DropdownMenuItem>
+          </DialogTrigger>
+          <DialogTrigger asChild>
+            <DropdownMenuItem onClick={() => handleAccountSelection('PrivateInvestment')}>Private Investment</DropdownMenuItem>
+          </DialogTrigger>
+          <DialogTrigger asChild>
+            <DropdownMenuItem onClick={() => handleAccountSelection('RealEstate')}>Real Estate</DropdownMenuItem>
+          </DialogTrigger>
+          <DialogTrigger asChild>
+            <DropdownMenuItem onClick={() => handleAccountSelection('OtherAssets')}>Other Assets</DropdownMenuItem>
+          </DialogTrigger>
+          <DialogTrigger asChild>
+            <DropdownMenuItem onClick={() => handleAccountSelection('Liability')}>Liability</DropdownMenuItem>
+          </DialogTrigger>
+        </DropdownMenuContent>
+      </DropdownMenu>
+
+      {/* Conditionally render dialogs based on the selected account type */}
+      {selectedAccountType === 'CashAccount' && <CashAccountDialog />}
+      {selectedAccountType === 'InvestmentAccount' && <InvestmentAccountDialog />}
+      {selectedAccountType === 'PrivateInvestment' && <PrivateInvestmentDialog />}
+      {selectedAccountType === 'RealEstate' && <RealEstateDialog />}
+      {selectedAccountType === 'OtherAssets' && <OtherAssetDialog />}
+      {selectedAccountType === 'Liability' && <LiabilityDialog />}
+    </Dialog>
+  );
 }

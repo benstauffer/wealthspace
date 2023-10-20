@@ -10,25 +10,32 @@ datasource db {
     relationMode = "prisma"
 }
 
-enum AccountType {
-  CASH_ACCOUNT
-  INVESTMENT
-  PRIVATE_INVESTMENT
-  REAL_ESTATE
-  OTHER_ASSET
-  PAYABLE
-}
-
-enum OwnerType {
-    PERSONAL
-    PARTNER
-    OTHER
+model User {
+  id           Int       @id @default(autoincrement())
+  clerkUserId  String    // This will store the Clerk's userId
+  accounts     Account[] // Relationship between user and accounts
 }
 
 model Account {
-  id          String          @id @default(cuid())
-  owner       OwnerType
-  type        AccountType
-  name        String
-  value       Float
+  id      Int    @id @default(cuid())
+  owner   OwnerType
+  type    AccountType
+  value   Float
+  userId  Int   // Foreign key reference to User
+  user    User  @relation(fields: [userId], references: [id])
+}
+
+enum AccountType {
+  CashAccount
+  InvestmentAccount
+  PrivateInvestment
+  RealEstate
+  OtherAssets
+  Liability
+}
+
+enum OwnerType {
+    Personal
+    Partner
+    OtherOwner
 }

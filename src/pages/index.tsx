@@ -21,12 +21,9 @@ export default function Home() {
   return (
     <>
       <main className="mt-5 flex justify-center">
-        <div className="h-full w-full md:max-w-5xl">
-          <div>
-            <DialogAddAccount />
-          </div>
-          <div>
-            <Button>Click Here</Button>          
+        <div className="h-full w-full md:max-w-3xl">
+          <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+            <DialogAddAccount/>
           </div>
           <div>
             {data?.map((account) => <div key={account.id}>{account.name}</div>)}
@@ -36,3 +33,4 @@ export default function Home() {
     </>
   );
 }
+
