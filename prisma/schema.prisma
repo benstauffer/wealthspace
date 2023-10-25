@@ -11,17 +11,16 @@ datasource db {
 }
 
 model User {
-  id           Int       @id @default(autoincrement())
-  clerkUserId  String    // This will store the Clerk's userId
+  id           String      @id //Clerk's userId
   accounts     Account[] // Relationship between user and accounts
 }
 
 model Account {
-  id      Int    @id @default(cuid())
-  owner   OwnerType
+  id      Int    @id @default(autoincrement())
+  name    String
   type    AccountType
   value   Float
-  userId  Int   // Foreign key reference to User
+  userId  String   // Foreign key reference to User
   user    User  @relation(fields: [userId], references: [id])
 }
 
@@ -39,3 +38,4 @@ enum OwnerType {
     Partner
     OtherOwner
 }
+
