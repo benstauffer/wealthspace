@@ -33,9 +33,27 @@ enum AccountType {
   Liability
 }
 
+model CashFlow {
+  id      Int    @id @default(autoincrement())
+  name    String
+  type    IncomeType
+  value   Float
+  userId  String   // Foreign key reference to User
+  user    User  @relation(fields: [userId], references: [id])
+}
+
+enum CashFlowType {
+  Income
+  Expense
+}
+
+enum CashFlowTaxType {
+  TaxFree
+  Taxable
+}
+
 enum OwnerType {
     Personal
     Partner
     OtherOwner
 }
-

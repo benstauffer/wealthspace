@@ -28,6 +28,6 @@
     "**/*.tsx",
     "**/*.cjs",
     "**/*.mjs"
-, "src/@/components/ui/accounts-table"  ],
+, "src/@/components/accounts-table", "src/@/components/sidenavbar"  ],
   "exclude": ["node_modules"]
 }

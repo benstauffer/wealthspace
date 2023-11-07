@@ -8,7 +8,7 @@ import { httpBatchLink, loggerLink } from "@trpc/client";
 import { createTRPCNext } from "@trpc/next";
 import { type inferRouterInputs, type inferRouterOutputs } from "@trpc/server";
 import superjson from "superjson";
-
+import { createTRPCReact } from "@trpc/react-query";
 import { type AppRouter } from "~/server/api/root";
 
 const getBaseUrl = () => {
@@ -17,6 +17,7 @@ const getBaseUrl = () => {
   return `http://localhost:${process.env.PORT ?? 3000}`; // dev SSR should use localhost
 };
 
+export const trpc = createTRPCReact<AppRouter>();
 /** A set of type-safe react-query hooks for your tRPC API. */
 export const api = createTRPCNext<AppRouter>({
   config() {
